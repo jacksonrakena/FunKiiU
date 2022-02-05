@@ -13,6 +13,12 @@ FunKiiU will accept keys and generate tickets, but you do not have to enter a ke
 - **¡¡On first use, you will need to provide the url of -thekeysite-!!**
     - **Here is a hint** - https://encrypted.google.com/search?hl=en&q=wiiu%20title%20key%20site   
 
+**Example:**  
+This will download a copy of `SUPER MARIO 3D WORLD` (title ID `0005000010145C00`) to `/Volumes/HBRW/install`:
+```bash
+python3 FunKiiU.py -title 0005000010145C00 -onlinetickets -outputdir /Volumes/HBRW/
+```
+
 Using **keys** will generate a ticket that is not legit, the Wii U needs signature patches to accept it. (This is possible now, but a bit tricky to set up.)
 
 Using **tickets** will download a ticket that is legit, and once installed, the content will work without any hacks at all. This is ideal, yet there are not and will not be tickets for **all** content that exists.
