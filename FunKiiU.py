@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #  FunKiiU 2.2
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
 
 __VERSION__ = 2.2
 
@@ -17,10 +17,10 @@ import sys
 import zlib
 
 try:
-    from urllib.request import urlopen
-    from urllib.error import URLError, HTTPError
+    from urllib.error import HTTPError, URLError
+    from urllib.request import Request, urlopen
 except ImportError:
-    from urllib2 import urlopen, URLError, HTTPError
+    from urllib2 import HTTPError, URLError, urlopen
 
 try:
     real_input = raw_input  # Python2
@@ -106,7 +106,8 @@ def progress_bar(part, total, length=10, char='#', blank=' ', left='[', right=']
 def download_file(url, outfname, retry_count=3, ignore_404=False, expected_size=None, chunk_size=0x4096):
     for _ in retry(retry_count):
         try:
-            infile = urlopen(url)
+            req = Request(url, None, {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'})
+            infile = urlopen(req)
             # start of modified code
             if os.path.isfile(outfname):
                 statinfo = os.stat(outfname)
@@ -384,7 +385,7 @@ def main(titles=None, keys=None, onlinekeys=False, onlinetickets=False, download
                 print('{} - is not ok.'.format(title_id))
                 sys.exit(0)
         elif onlinekeys or onlinetickets:
-            title_data = next((t for t in titlekeys_data if t['titleID'] == title_id.lower()), None)
+            title_data = next((t for t in titlekeys_data if t['titleID'].lower() == title_id.lower()), None)
 
             if not patch:
                 if not title_data:
